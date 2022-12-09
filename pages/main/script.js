@@ -48,11 +48,13 @@ const PET_CARDS = document.querySelectorAll(".friends__items_item"),
   CLOSE_MODAL = document.querySelector(".popup-close"),
   POPUP_WINDOW = document.querySelector(".popup-window");
 
-PET_CARDS.forEach((card) => card.addEventListener("click", (event) => {
-  openModal(event);
-}));
-CLOSE_MODAL.addEventListener('click', closeModal);
-MODAL.addEventListener('click', (e) => {
+PET_CARDS.forEach((card) =>
+  card.addEventListener("click", (event) => {
+    openModal(event);
+  })
+);
+CLOSE_MODAL.addEventListener("click", closeModal);
+MODAL.addEventListener("click", (e) => {
   console.log(e.target);
   if (e.target.classList.contains("modal")) {
     closeModal();
@@ -96,6 +98,57 @@ function closeModal() {
   BODY.style.overflowY = "";
 }
 
+// carousel
+
+class PetCard {
+  constructor(src, alt, title, parentContainer, ...classes) {
+    this.src = src;
+    this.alt = alt;
+    this.title = title;
+    this.classes = classes;
+    this.parent = document.querySelector(parentContainer);
+  }
+
+  render() {
+    const wrapperDiv = document.createElement("div");
+    wrapperDiv.dataset.pet = `${this.title}`;
+
+    if (this.classes.length === 3) {
+      this.wrapperDiv = "friends__items_item";
+      wrapperDiv.classList.add(this.wrapperDiv);
+    } else {
+      this.classes.forEach((className) => wrapperDiv.classList.add(className));
+    }
+    wrapperDiv.innerHTML = `
+    <div class="item_inner" data-pet="${this.title}">
+    <img class="pet-photo-front"
+      src="${this.src}"
+      alt="${this.alt}"
+      data-pet="${this.title}"
+    />
+    <h4 class="friends__item_title front" data-pet="${this.title}">${this.title}</h4>
+    <button
+      class="friends__item_button button front"
+      type="button"
+      data-pet="${this.title}"
+    >
+      Learn more
+    </button>
+</div>
+                `;
+    this.parent.append(wrapperDiv);
+  }
+}
+
+pets.forEach(({ img, breed, name }) => {
+  new PetCard(
+    img,
+    breed,
+    name,
+    ".items-container",
+    "friends__items_item"
+  ).render();
+});
 
 // carousel
 

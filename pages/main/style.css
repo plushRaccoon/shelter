@@ -603,6 +603,7 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  overflow: hidden;
 }
 
 .friends__items_item {
