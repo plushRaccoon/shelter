@@ -602,13 +602,14 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   overflow: hidden;
 }
 
 .friends__items_item {
   position: inherit;
-  flex-basis: 270px;
+  flex: 0 0 270px;
+  /* flex-basis: 270px; */
   height: 435px;
   border: 1px solid #f1f1f1;
   border-radius: 9px;

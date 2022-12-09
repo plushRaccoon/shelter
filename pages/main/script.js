@@ -42,6 +42,57 @@ DARK_NAV.addEventListener("click", closeMenu);
 
 // popup window
 
+class PetCard {
+  constructor(src, alt, title, parentContainer, ...classes) {
+    this.src = src;
+    this.alt = alt;
+    this.title = title;
+    this.classes = classes;
+    this.parent = document.querySelector(parentContainer);
+  }
+
+  render() {
+    const wrapperDiv = document.createElement("div");
+    wrapperDiv.dataset.pet = `${this.title}`;
+
+    if (this.classes.length === 0) {
+      this.wrapperDiv = "friends__items_item";
+      wrapperDiv.classList.add(this.wrapperDiv);
+    } else {
+      this.classes.forEach((className) => wrapperDiv.classList.add(className));
+    }
+    wrapperDiv.innerHTML = `
+    <div class="item_inner" data-pet="${this.title}">
+    <img class="pet-photo-front"
+      src="${this.src}"
+      alt="${this.alt}"
+      data-pet="${this.title}"
+    />
+    <h4 class="friends__item_title front" data-pet="${this.title}">${this.title}</h4>
+    <button
+      class="friends__item_button button front"
+      type="button"
+      data-pet="${this.title}"
+    >
+      Learn more
+    </button>
+</div>
+                `;
+    this.parent.append(wrapperDiv);
+  }
+}
+
+showPetCard();
+// arr.forEach(({ img, breed, name }) => {
+//   new PetCard(
+//     img,
+//     breed,
+//     name,
+//     ".items-container",
+//     "friends__items_item"
+//   ).render();
+// });
+
 const PET_CARDS = document.querySelectorAll(".friends__items_item"),
   MODAL = document.querySelector(".modal"),
   DARKEN = document.querySelector(".popup-dark-container"),
@@ -50,6 +101,7 @@ const PET_CARDS = document.querySelectorAll(".friends__items_item"),
 
 PET_CARDS.forEach((card) =>
   card.addEventListener("click", (event) => {
+    console.log(event.target);
     openModal(event);
   })
 );
@@ -100,55 +152,50 @@ function closeModal() {
 
 // carousel
 
-class PetCard {
-  constructor(src, alt, title, parentContainer, ...classes) {
-    this.src = src;
-    this.alt = alt;
-    this.title = title;
-    this.classes = classes;
-    this.parent = document.querySelector(parentContainer);
-  }
+const prev = document.querySelector('.button_prev'),
+  next = document.querySelector('.button_next');
 
-  render() {
-    const wrapperDiv = document.createElement("div");
-    wrapperDiv.dataset.pet = `${this.title}`;
-
-    if (this.classes.length === 3) {
-      this.wrapperDiv = "friends__items_item";
-      wrapperDiv.classList.add(this.wrapperDiv);
-    } else {
-      this.classes.forEach((className) => wrapperDiv.classList.add(className));
-    }
-    wrapperDiv.innerHTML = `
-    <div class="item_inner" data-pet="${this.title}">
-    <img class="pet-photo-front"
-      src="${this.src}"
-      alt="${this.alt}"
-      data-pet="${this.title}"
-    />
-    <h4 class="friends__item_title front" data-pet="${this.title}">${this.title}</h4>
-    <button
-      class="friends__item_button button front"
-      type="button"
-      data-pet="${this.title}"
-    >
-      Learn more
-    </button>
-</div>
-                `;
-    this.parent.append(wrapperDiv);
-  }
+function getRandomNum(arr) {
+  let min = 0,
+    max = arr.length;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
-pets.forEach(({ img, breed, name }) => {
-  new PetCard(
-    img,
-    breed,
-    name,
-    ".items-container",
-    "friends__items_item"
-  ).render();
-});
+function getRandomArr(arr) {
+  let num;
+  let arrOfRandomNum = [];
+  for (let i = 0; i < 3; i++) {
+    num = getRandomNum(arr);
+    if (!arrOfRandomNum.includes(num)) {
+      arrOfRandomNum.push(num);
+    } else {
+      i--;
+    }
+  }
+  return arrOfRandomNum;
+}
+
+function showPetCard() {
+  let arr = getRandomArr(pets);
+  console.log(arr);
+  arr.forEach(i => {
+    return new PetCard(
+      pets[i].img,
+      pets[i].breed,
+      pets[i].name,
+      ".items-container",
+      "friends__items_item"
+    ).render();
+  });
+}
+
+
+
+
+const slidesContainer = document.querySelector(".items-container");
+
+console.log(slidesContainer.style.width);
+// function
 
 // carousel
 
