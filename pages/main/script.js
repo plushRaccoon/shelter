@@ -40,8 +40,7 @@ const navLinks = document.querySelectorAll(".navigation__item");
 navLinks.forEach((el) => el.addEventListener("click", closeMenu));
 DARK_NAV.addEventListener("click", closeMenu);
 
-// popup window
-
+// carousel
 class PetCard {
   constructor(src, alt, title, parentContainer, ...classes) {
     this.src = src;
@@ -79,32 +78,73 @@ class PetCard {
 </div>
                 `;
     this.parent.append(wrapperDiv);
+    return wrapperDiv;
   }
 }
 
-showPetCard();
-// arr.forEach(({ img, breed, name }) => {
-//   new PetCard(
-//     img,
-//     breed,
-//     name,
-//     ".items-container",
-//     "friends__items_item"
-//   ).render();
-// });
+let currentSlider = getRandomArr(0, pets.length, pets);
+let pastSlider;
 
-const PET_CARDS = document.querySelectorAll(".friends__items_item"),
-  MODAL = document.querySelector(".modal"),
+console.log(showPetCard());
+
+const prev = document.querySelector('.button_prev'),
+  next = document.querySelector('.button_next');
+prev.addEventListener('click', changeCards);
+next.addEventListener('click', changeCards);
+
+function getRandomNum(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function getRandomArr(min, max, arr) {
+  let num;
+  let arrOfRandomNum = [];
+  for (let i = 0; i < 3; i++) {
+    num = getRandomNum(min, max);
+    if (!arrOfRandomNum.includes(num) && !arr.includes(num)) {
+      arrOfRandomNum.push(num);
+    } else {
+      i--;
+    }
+  }
+  return arrOfRandomNum;
+}
+
+function showPetCard() {
+  let cards = currentSlider.map(i => {
+    return new PetCard(
+      pets[i].img,
+      pets[i].breed,
+      pets[i].name,
+      ".items-container",
+      "friends__items_item"
+    ).render();
+  });
+  cards.forEach(card => card.addEventListener('click', openModal));
+}
+
+function changeCards() {
+  pastSlider = currentSlider;
+  currentSlider = getRandomArr(0, pets.length, pastSlider);
+  console.log(pastSlider, currentSlider);
+    deletePrevCard();
+    showPetCard();
+}
+
+function deletePrevCard() {
+  document.querySelector('.items-container').innerHTML = '';
+}
+
+
+// pop-up window
+
+const MODAL = document.querySelector(".modal"),
   DARKEN = document.querySelector(".popup-dark-container"),
   CLOSE_MODAL = document.querySelector(".popup-close"),
   POPUP_WINDOW = document.querySelector(".popup-window");
 
-PET_CARDS.forEach((card) =>
-  card.addEventListener("click", (event) => {
-    console.log(event.target);
-    openModal(event);
-  })
-);
+
+
 CLOSE_MODAL.addEventListener("click", closeModal);
 MODAL.addEventListener("click", (e) => {
   console.log(e.target);
@@ -150,51 +190,15 @@ function closeModal() {
   BODY.style.overflowY = "";
 }
 
-// carousel
-
-const prev = document.querySelector('.button_prev'),
-  next = document.querySelector('.button_next');
-
-function getRandomNum(arr) {
-  let min = 0,
-    max = arr.length;
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function getRandomArr(arr) {
-  let num;
-  let arrOfRandomNum = [];
-  for (let i = 0; i < 3; i++) {
-    num = getRandomNum(arr);
-    if (!arrOfRandomNum.includes(num)) {
-      arrOfRandomNum.push(num);
-    } else {
-      i--;
-    }
-  }
-  return arrOfRandomNum;
-}
-
-function showPetCard() {
-  let arr = getRandomArr(pets);
-  console.log(arr);
-  arr.forEach(i => {
-    return new PetCard(
-      pets[i].img,
-      pets[i].breed,
-      pets[i].name,
-      ".items-container",
-      "friends__items_item"
-    ).render();
-  });
-}
 
 
 
 
-const slidesContainer = document.querySelector(".items-container");
 
-console.log(slidesContainer.style.width);
+
+
+
+// console.log(slidesContainer.style.width);
 // function
 
 // carousel
