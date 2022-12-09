@@ -85,7 +85,7 @@ class PetCard {
 let currentSlider = getRandomArr(0, pets.length, pets);
 let pastSlider;
 
-console.log(showPetCard());
+showPetCard();
 
 const prev = document.querySelector('.button_prev'),
   next = document.querySelector('.button_next');
