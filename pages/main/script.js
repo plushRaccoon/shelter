@@ -128,7 +128,7 @@ function changeCards() {
   currentSlider = getRandomArr(0, pets.length, pastSlider);
   console.log(pastSlider, currentSlider);
     deletePrevCard();
-    showPetCard();
+  showPetCard();
 }
 
 function deletePrevCard() {

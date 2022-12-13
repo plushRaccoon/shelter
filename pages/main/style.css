@@ -609,7 +609,6 @@ body {
 .friends__items_item {
   position: inherit;
   flex: 0 0 270px;
-  /* flex-basis: 270px; */
   height: 435px;
   border: 1px solid #f1f1f1;
   border-radius: 9px;
@@ -631,6 +630,15 @@ body {
   z-index: 10;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .item_inner img {
   height: auto;
   width: 270px;
@@ -639,7 +647,7 @@ body {
 
 .friends__items_item:hover .item_inner {
   background-color: var(--color-light-xl);
-  box-shadow: 0 5px 30px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.2);
 }
 
 .friends__items_item:hover .friends__item_button {
@@ -733,10 +741,13 @@ body {
   }
 }
 
-
 @keyframes move-right {
-  from {left: -640px;}
-  to {left: -1280px;}
+  from {
+    left: -640px;
+  }
+  to {
+    left: -1280px;
+  }
 }
 
 .transition-right {
@@ -745,8 +756,12 @@ body {
 }
 
 @keyframes move-left {
-  from {left: -640px;}
-  to {left: 0px;}
+  from {
+    left: -640px;
+  }
+  to {
+    left: 0px;
+  }
 }
 
 .transition-left {
@@ -1187,7 +1202,7 @@ body {
   z-index: 77;
   left: 0;
   right: 0;
-  margin: 0 auto;  
+  margin: 0 auto;
   pointer-events: all;
   opacity: 1;
   transform: scale(1);

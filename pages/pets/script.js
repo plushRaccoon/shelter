@@ -88,8 +88,8 @@ let pastSlider;
 
 showPetCard();
 
-const prev = document.querySelector('.button_prev'),
-  next = document.querySelector('.button_next');
+// const prev = document.querySelector('.button_prev'),
+//   next = document.querySelector('.button_next');
 // prev.addEventListener('click', changeCards);
 // next.addEventListener('click', changeCards);
 
@@ -100,7 +100,7 @@ function getRandomNum(min, max) {
 function getRandomArr(min, max, arr) {
   let num;
   let arrOfRandomNum = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < max; i++) {
     num = getRandomNum(min, max);
     if (!arrOfRandomNum.includes(num) && !arr.includes(num)) {
       arrOfRandomNum.push(num);
@@ -190,3 +190,22 @@ function closeModal() {
   MODAL.classList.remove("modal-show");
   BODY.style.overflowY = "";
 }
+
+
+// pagination
+
+let arrOfArr = [];
+
+function generateArrOfPets(arr) {
+    for (let i = 0; i < 6; i++) {
+      arr.push(getRandomArr(0, 8, arr));
+    }
+  }
+generateArrOfPets(arrOfArr);
+
+let arrOfNum = arrOfArr.reduce((acc, cur) => {
+  return acc.concat(cur);
+});
+console.log(arrOfNum);
+
+
