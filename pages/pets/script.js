@@ -1,6 +1,5 @@
 import pets from "../pets.js";
 
-
 const hamburger = document.querySelector(".hamburger");
 const nav = document.querySelector(".navigation__list");
 const logo = document.querySelector(".header__logo");
@@ -27,7 +26,6 @@ function slideMenu() {
   }
 }
 
-
 function closeMenu() {
   nav.classList.remove("open");
   hamburger.classList.remove("open");
@@ -38,7 +36,6 @@ function closeMenu() {
 const navLinks = document.querySelectorAll(".navigation__item");
 navLinks.forEach((el) => el.addEventListener("click", closeMenu));
 DARK_NAV.addEventListener("click", closeMenu);
-
 
 // carousel
 
@@ -83,10 +80,7 @@ class PetCard {
   }
 }
 
-let currentSlider = getRandomArr(0, pets.length, pets);
-let pastSlider;
-
-showPetCard();
+// let pastSlider;
 
 // const prev = document.querySelector('.button_prev'),
 //   next = document.querySelector('.button_next');
@@ -111,40 +105,12 @@ function getRandomArr(min, max, arr) {
   return arrOfRandomNum;
 }
 
-function showPetCard() {
-  let cards = currentSlider.map(i => {
-    return new PetCard(
-      pets[i].img,
-      pets[i].breed,
-      pets[i].name,
-      ".friends__items",
-      "friends__items_item"
-    ).render();
-  });
-  cards.forEach(card => card.addEventListener('click', openModal));
-}
-
-function changeCards() {
-  pastSlider = currentSlider;
-  currentSlider = getRandomArr(0, pets.length, pastSlider);
-  console.log(pastSlider, currentSlider);
-    deletePrevCard();
-    showPetCard();
-}
-
-function deletePrevCard() {
-  document.querySelector('.items-container').innerHTML = '';
-}
-
-
 // pop-up window
 
 const MODAL = document.querySelector(".modal"),
   DARKEN = document.querySelector(".popup-dark-container"),
   CLOSE_MODAL = document.querySelector(".popup-close"),
   POPUP_WINDOW = document.querySelector(".popup-window");
-
-
 
 CLOSE_MODAL.addEventListener("click", closeModal);
 MODAL.addEventListener("click", (e) => {
@@ -191,21 +157,127 @@ function closeModal() {
   BODY.style.overflowY = "";
 }
 
-
 // pagination
+
+const cardsContainer = document.querySelector(".friends__items"),
+  prevFirst = document.querySelector(".prev-first"),
+  nextLast = document.querySelector(".next-last"),
+  prev = document.querySelector("a.prev"),
+  next = document.querySelector("a.next"),
+  pageNum = document.querySelector(".page-num"),
+  pagination = document.querySelector('.pagination');
 
 let arrOfArr = [];
 
 function generateArrOfPets(arr) {
-    for (let i = 0; i < 6; i++) {
-      arr.push(getRandomArr(0, 8, arr));
-    }
+  for (let i = 0; i < 6; i++) {
+    arr.push(getRandomArr(0, 8, arr));
   }
+}
 generateArrOfPets(arrOfArr);
 
 let arrOfNum = arrOfArr.reduce((acc, cur) => {
   return acc.concat(cur);
 });
-console.log(arrOfNum);
+// console.log(arrOfNum);
+
+let firstPage;
+
+if (BODY.clientWidth >= 1280) {
+  firstPage = arrOfNum.slice(0, 8);
+} else if (BODY.clientWidth < 1280 && BODY.clientWidth >= 768) {
+  firstPage = arrOfNum.slice(0, 6);
+} else {
+  firstPage = arrOfNum.slice(0, 3);
+}
+
+console.log(firstPage);
+
+showPetCard();
+
+let numberOfPages = arrOfNum.length / cardsContainer.children.length;
+let currentPage = 1;
 
 
+
+function showPetCard() {
+  let cards = firstPage.map((i) => {
+    return new PetCard(
+      pets[i].img,
+      pets[i].breed,
+      pets[i].name,
+      ".friends__items",
+      "friends__items_item"
+    ).render();
+  });
+  cards.forEach((card) => card.addEventListener("click", openModal));
+}
+
+function goToLast() {
+  currentPage = numberOfPages;
+  nextLast.classList.add("inactive");
+  next.classList.add("inactive");
+}
+
+function goToFirst() {
+  currentPage = 1;
+  prevFirst.classList.add("inactive");
+  prev.classList.add("inactive");
+}
+
+function changePageNumber(e) {
+  let event = e.target;
+  if (event == nextLast) {
+    goToLast();
+  }
+  if (event == prevFirst) {
+    goToFirst();
+  }
+  console.log(event == next);
+  if (event == next) {
+    currentPage += 1;
+    prevFirst.classList.add("active");
+    prev.classList.add("active");
+    if (currentPage == numberOfPages && pageNum.textContent == numberOfPages) {
+      goToLast();
+    }
+    console.log(currentPage);
+  }
+  if (event == prev) {
+    if (currentPage == 1 && pageNum.textContent == 1) {
+      goToFirst();
+    }
+    currentPage -= 1;
+  }
+  pageNum.textContent = currentPage;
+  firstPage = arrOfNum.slice(
+    (currentPage - 1) * cardsContainer.children.length,
+    currentPage * cardsContainer.children.length
+  );
+  deletePrevCard();
+  showPetCard();
+}
+
+function deletePrevCard() {
+  cardsContainer.innerHTML = "";
+}
+
+pagination.addEventListener("click", (e) => {
+  e.preventDefault();
+  changePageNumber(e);
+  console.log(e.target);
+});
+// next.addEventListener("click", (e) => {
+//   changePageNumber(e);
+//   console.log(e.target);
+// });
+// prevFirst.addEventListener("click", (e) => {
+//   changePageNumber(e);
+//   console.log(e.target);
+// });
+// nextLast.addEventListener("click", (e) => {
+//   changePageNumber(e);
+//   console.log(e.target);
+// });
+
+// console.log(pageNum.textContent);

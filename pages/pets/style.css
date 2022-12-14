@@ -560,26 +560,50 @@ body {
   font-size: var(--button-size);
 }
 
-.button,
-.pagination_button.next:hover {
+.button {
   cursor: pointer;
   transform: scale(1);
   transition: transform background-color 0.5s;
+} /* .pagination_button.next:hover*/
+
+/* .button:hover {
+  background-color: var(--color-primary-light);
+  transform: scale(1.2);
+  transition: transform 0.5s;
+} .pagination_button.next:hover */
+
+.page-num {
+  cursor: default;
+  background-color: var(--color-primary);
 }
 
-.button:hover,
-.pagination_button.next:hover {
+/* .pagination_button.prev {
+  border: 2px solid var(--color-dark-s);
+  color: var(--color-dark-s);
+  cursor: default;
+} */
+
+.pagination_button.active {
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform background-color 0.5s;
+  border: 2px solid var(--color-primary-light);
+  color: var(--color-dark-3xl);
+}
+
+.pagination_button.active:hover {
   background-color: var(--color-primary-light);
   transform: scale(1.2);
   transition: transform 0.5s;
 }
 
-.pagination_button.active {
-  background-color: var(--color-primary);
+.pagination_button.inactive {
+  border: 2px solid var(--color-dark-s);
+  color: var(--color-dark-s);
   cursor: default;
 }
 
-.pagination_button.prev {
+.pagination_button.inactive:hover {
   border: 2px solid var(--color-dark-s);
   color: var(--color-dark-s);
   cursor: default;
