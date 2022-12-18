@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our pets</title>
+    <link rel="stylesheet" href="../normalize.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="shortcut icon"
+      href="../../assets/icons/help/sleeping-area.svg"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__logo">
+        <h1 class="header__logo logo_title">
+          <a href="../main/index.html">Cozy House</a>
+        </h1>
+        <p class="header__logo logo_text">Shelter for pets in Boston</p>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="header__navigation">
+          <ul class="navigation__list">
+            <li class="navigation__item">
+              <a href="../main/index.html">About the shelter</a>
+            </li>
+            <li class="navigation__item"><a href="index.html">Our pets</a></li>
+            <li class="navigation__item">
+              <a href="../main/index.html#help">Help the shelter</a>
+            </li>
+            <li class="navigation__item"><a href="#contacts">Contacts</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="hamburger">
+        <span class="line line1"></span>
+        <span class="line line2"></span>
+        <span class="line line3"></span>
+      </div>
+    </header>
+    <main class="main">
+      <section class="friends">
+        <h3 class="friends__title">
+          Our friends who<br />
+          are looking for a house
+        </h3>
+        <section class="friends__items"></section>
+        <div class="pagination">
+          <a class="pagination_button prev-first inactive" href="#"><<</a>
+          <a class="pagination_button prev inactive" href="#"><</a>
+          <a class="pagination_button page-num" href="#">1</a>
+          <a class="pagination_button next" href="#">></a>
+          <a class="pagination_button next-last" href="#">>></a>
+        </div>
+      </section>
+    </main>
+    <footer class="footer" id="contacts">
+      <div class="footer_contacts">
+        <h3 class="contacts">For questions and suggestions</h3>
+        <div class="contacts_email_container">
+          <img src="../../assets/icons/other/email.svg" alt="" />
+          <a href="mailto:email@shelter.com" class="contacts_email"
+            >email@shelter.com</a
+          >
+        </div>
+        <div class="contacts_phone_container">
+          <img src="../../assets/icons/other/phone.svg" alt="" />
+          <a href="tel:+13 674 567 75 54" class="contacts_phone"
+            >+13 674 567 75 54</a
+          >
+        </div>
+      </div>
+      <div class="footer_situation">
+        <h3 class="situation">We are waiting for your visit</h3>
+        <div class="situation_container_boston">
+          <img src="../../assets/icons/other/marker-spot.svg" alt="" />
+          <a
+            href="https://goo.gl/maps/SmED6TMY1D9RCMw39"
+            class="situation_boston"
+            target="_blank"
+            >1 Central Street, Boston <br />(entrance from the store)</a
+          >
+        </div>
+        <div class="situation_container_london">
+          <img src="../../assets/icons/other/marker-spot.svg" alt="" />
+          <a
+            href="https://goo.gl/maps/Q21a84q6QTyJuNzE8"
+            class="situation_london"
+            target="_blank"
+            >18 South Park, London
+          </a>
+        </div>
+      </div>
+      <div class="footer-dog">
+        <img src="../../assets/icons/pets-icons/footer-puppy.svg" alt="Puppy" />
+      </div>
+    </footer>
+    <div class="popup-dark-container">
+      <div class="modal">
+        <div class="close-popup">
+          <div class="popup-close pagination_button">&#215;</div>
+        </div>
+        <div class="popup-window"></div>
+      </div>
+    </div>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
