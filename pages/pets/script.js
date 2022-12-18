@@ -272,4 +272,5 @@ function deletePrevCard() {
 pagination.addEventListener("click", (e) => {
   e.preventDefault();
   changePageNumber(e);
+  window.scrollTo(0, 0);
 });
