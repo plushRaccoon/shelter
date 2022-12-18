@@ -446,8 +446,7 @@ body {
   border: none;
 }
 
-.friends__item_button:hover,
-.pagination_button.next:hover {
+.friends__item_button:hover {
   border: none;
 }
 
@@ -558,55 +557,40 @@ body {
   font-style: normal;
   font-weight: 400;
   font-size: var(--button-size);
+  cursor: pointer;
 }
 
-.button {
+.pagination_button {
   cursor: pointer;
   transform: scale(1);
   transition: transform background-color 0.5s;
-} /* .pagination_button.next:hover*/
+}
 
-/* .button:hover {
+.pagination_button:hover {
   background-color: var(--color-primary-light);
+  border: var(--color-primary-light);
   transform: scale(1.2);
   transition: transform 0.5s;
-} .pagination_button.next:hover */
+}
 
 .page-num {
   cursor: default;
   background-color: var(--color-primary);
-}
-
-/* .pagination_button.prev {
-  border: 2px solid var(--color-dark-s);
-  color: var(--color-dark-s);
-  cursor: default;
-} */
-
-.pagination_button.active {
-  cursor: pointer;
   transform: scale(1);
-  transition: transform background-color 0.5s;
-  border: 2px solid var(--color-primary-light);
-  color: var(--color-dark-3xl);
 }
 
-.pagination_button.active:hover {
-  background-color: var(--color-primary-light);
-  transform: scale(1.2);
-  transition: transform 0.5s;
+.page-num:hover {
+  transform: scale(1);
+  transition: none 0s;
+  background-color: var(--color-primary);
 }
 
 .pagination_button.inactive {
   border: 2px solid var(--color-dark-s);
   color: var(--color-dark-s);
   cursor: default;
-}
-
-.pagination_button.inactive:hover {
-  border: 2px solid var(--color-dark-s);
-  color: var(--color-dark-s);
-  cursor: default;
+  transform: scale(1);
+  background-color: transparent;
 }
 
 .header__logo.logo_title,

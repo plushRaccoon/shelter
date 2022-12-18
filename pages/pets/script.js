@@ -165,7 +165,7 @@ const cardsContainer = document.querySelector(".friends__items"),
   prev = document.querySelector("a.prev"),
   next = document.querySelector("a.next"),
   pageNum = document.querySelector(".page-num"),
-  pagination = document.querySelector('.pagination');
+  pagination = document.querySelector(".pagination");
 
 let arrOfArr = [];
 
@@ -179,7 +179,6 @@ generateArrOfPets(arrOfArr);
 let arrOfNum = arrOfArr.reduce((acc, cur) => {
   return acc.concat(cur);
 });
-// console.log(arrOfNum);
 
 let firstPage;
 
@@ -198,8 +197,6 @@ showPetCard();
 let numberOfPages = arrOfNum.length / cardsContainer.children.length;
 let currentPage = 1;
 
-
-
 function showPetCard() {
   let cards = firstPage.map((i) => {
     return new PetCard(
@@ -214,15 +211,23 @@ function showPetCard() {
 }
 
 function goToLast() {
+  pagination.removeEventListener("click", changePageNumber);
   currentPage = numberOfPages;
   nextLast.classList.add("inactive");
   next.classList.add("inactive");
+  prevFirst.classList.remove("inactive");
+  prev.classList.remove("inactive");
+  return;
 }
 
 function goToFirst() {
+  pagination.removeEventListener("click", changePageNumber);
   currentPage = 1;
   prevFirst.classList.add("inactive");
   prev.classList.add("inactive");
+  nextLast.classList.remove("inactive");
+  next.classList.remove("inactive");
+  return;
 }
 
 function changePageNumber(e) {
@@ -233,21 +238,23 @@ function changePageNumber(e) {
   if (event == prevFirst) {
     goToFirst();
   }
-  console.log(event == next);
   if (event == next) {
-    currentPage += 1;
-    prevFirst.classList.add("active");
-    prev.classList.add("active");
-    if (currentPage == numberOfPages && pageNum.textContent == numberOfPages) {
+    if (currentPage === (numberOfPages - 1) || currentPage === numberOfPages) {
       goToLast();
+    } else {
+      currentPage += 1;
+      prevFirst.classList.remove("inactive");
+      prev.classList.remove("inactive");
     }
-    console.log(currentPage);
   }
   if (event == prev) {
-    if (currentPage == 1 && pageNum.textContent == 1) {
+    if (currentPage == 2 || currentPage == 1) {
       goToFirst();
+    } else {
+      currentPage -= 1;
+      nextLast.classList.remove("inactive");
+      next.classList.remove("inactive");
     }
-    currentPage -= 1;
   }
   pageNum.textContent = currentPage;
   firstPage = arrOfNum.slice(
@@ -265,19 +272,4 @@ function deletePrevCard() {
 pagination.addEventListener("click", (e) => {
   e.preventDefault();
   changePageNumber(e);
-  console.log(e.target);
 });
-// next.addEventListener("click", (e) => {
-//   changePageNumber(e);
-//   console.log(e.target);
-// });
-// prevFirst.addEventListener("click", (e) => {
-//   changePageNumber(e);
-//   console.log(e.target);
-// });
-// nextLast.addEventListener("click", (e) => {
-//   changePageNumber(e);
-//   console.log(e.target);
-// });
-
-// console.log(pageNum.textContent);
