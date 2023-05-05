@@ -1,4 +1,4 @@
 # shelter
-A project from the Rolling Scopes School I want to complete
+A project from the Rolling Scopes School stage 1
 
 https://plushraccoon.github.io/shelter/pages/main/
